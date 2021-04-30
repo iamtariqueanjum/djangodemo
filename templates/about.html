@@ -7,7 +7,17 @@
 </p>
 <ul>
     {% for item in my_list %}
-    <li> {{ forloop.counter }} - {{ item }} </li>
+        {% if item == 123 %}
+            <!-- If item is 123, then 321 is added to it
+                "|" is filter applied
+                refer https://docs.djangoproject.com/en/3.2/ref/templates/builtins/
+            -->
+            <li> {{ forloop.counter }} - {{ item|add:321 }} </li>
+        {% elif item == "apple" %}
+            <li> This is a fruit</li>
+        {% else %}
+            <li> {{ forloop.counter }} - {{ item }} </li>
+        {% endif %}
     {% endfor %}
 </ul>
 {% endblock %}
