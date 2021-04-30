@@ -5,6 +5,11 @@
 <p>
     {{ my_text }} , {{ page_id }}
 </p>
+<ul>
+    {% for item in my_list %}
+    <li> {{ forloop.counter }} - {{ item }} </li>
+    {% endfor %}
+</ul>
 {% endblock %}
 <!--
 {% block another_content_area %}
