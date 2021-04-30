@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Django Demo</title>
+</head>
+<body>
+    <h1>Heading from base.html</h1>
+    {% block content %}
+    replace me
+    {% endblock %}
+    <h1>Another Heading from base.html</h1>
+    {% block another_content_area %}
+    replace me from another_content_area
+    {% endblock %}
+</body>
+</html>
