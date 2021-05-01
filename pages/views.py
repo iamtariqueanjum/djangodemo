@@ -14,9 +14,10 @@ def contact_view(request, *args, **kwargs):
 
 def about_view(request, *args, **kwargs):
     my_context = {
-        "my_text": "This is about context text",
+        "my_text": "this is about context text with capfirst filter ",
         "my_num": 10,
-        "my_list": [3123, 123, 123123, "tiger", "apple"]
+        "my_list": [3123, 123, 123123, "tiger", "apple"],
+        "my_html": "<h1>This is safe html</h1>"
     }
     return render(request, "about.html", my_context)
 

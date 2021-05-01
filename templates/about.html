@@ -3,8 +3,12 @@
 <h1>About</h1>
 <p>This is a template page</p>
 <p>
-    {{ my_text }} , {{ page_id }}
+    {{ my_text|capfirst }} , id = {{ my_num }}
 </p>
+{{ my_html|safe }}
+{{ my_html|striptags }}
+<br>
+{{ my_html|striptags|slugify }}
 <ul>
     {% for item in my_list %}
         {% if item == 123 %}
@@ -14,7 +18,7 @@
             -->
             <li> {{ forloop.counter }} - {{ item|add:321 }} </li>
         {% elif item == "apple" %}
-            <li> This is a fruit</li>
+            <li> {{ item|upper }} This is a fruit</li>
         {% else %}
             <li> {{ forloop.counter }} - {{ item }} </li>
         {% endif %}
