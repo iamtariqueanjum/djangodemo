@@ -1,0 +1,2 @@
+# djangodemo
+Personal Practice Project 
