@@ -50,15 +50,15 @@ def initial_render_view(request):
     }
     return render(request, "products/product_create.html", context)
 
-def product_detail_view(request):
-    obj = Product.objects.get(id=1)
-    # context = {
-    #     'title': obj.title,
-    #     'description': obj.description,
-    #     'price': obj.price,
-    #     'summary': obj.summary,
-    #     'featured': obj.featured
-    # }
+def product_detail_view(request, id):
+    obj = Product.objects.get(id=id)
+    context = {
+        'title': obj.title,
+        'description': obj.description,
+        'price': obj.price,
+        'summary': obj.summary,
+        'featured': obj.featured
+    }
     context= {
         'object': obj
     }
