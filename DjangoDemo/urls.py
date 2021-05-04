@@ -26,8 +26,8 @@ urlpatterns = [
     path('social/', social_view),
     path('create/', product_create_view),
     path('initial/', initial_render_view),
-    path('product/<int:id>/', product_detail_view),
+    path('products/<int:id>/', product_detail_view),
     path('products/', product_list_view),
-    path('product/<int:id>/delete/', product_delete_view),
+    path('products/<int:id>/delete/', product_delete_view),
     path('admin/', admin.site.urls),
 ]

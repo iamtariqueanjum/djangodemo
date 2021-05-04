@@ -4,10 +4,12 @@
 <!--{{ object_list }}-->
 
 {% for instance in object_list %}
-    <p>Product Id : {{ instance.id }}</p>
-    <p>Title : {{ instance.title }}</p>
-    <p>Description : {{ instance.description }}</p>
-    <p>Price: {{ instance.price }}</p>
+    <p>{{ instance.id }} - <a href="{{ instance.get_absolute_url }}">{{ instance.title }}</a></p>
+    <!--
+        <p>Title : {{ instance.title }}</p>
+        <p>Description : {{ instance.description }}</p>
+        <p>Price: {{ instance.price }}</p>
+    -->
 {% endfor %}
 
 {% endblock %}
