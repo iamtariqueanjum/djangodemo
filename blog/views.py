@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+from django.urls import reverse
 
 from .models import Article
 from .forms import ArticleModelForm
@@ -48,3 +49,16 @@ class ArticleDetailView(DetailView):
     # def get_object(self):
     #     id_ = self.kwargs.get("id")
     #     return get_object_or_404(Article, id=id_)
+
+class ArticleDeleteView(DeleteView):
+    # queryset = Article.objects.filter(id__gt=1) # filters the queryset greater than
+    queryset = Article.objects.all()
+
+    #success_url = '../../'
+
+    def get_object(self):
+        id_ = self.kwargs.get("pk")
+        return get_object_or_404(Article, id=id_)
+
+    def get_success_url(self):
+        return reverse('blog:article-list')
