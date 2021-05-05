@@ -21,13 +21,13 @@ from products.views import product_detail_view,product_create_view,initial_rende
 
 urlpatterns = [
     path('', home_view, name='home'),
-    path('contact/', contact_view),
-    path('about/', about_view),
-    path('social/', social_view),
-    path('create/', product_create_view),
-    path('initial/', initial_render_view),
-    path('products/<int:id>/', product_detail_view),
-    path('products/', product_list_view),
-    path('products/<int:id>/delete/', product_delete_view),
+    path('contact/', contact_view, name='contact-page'),
+    path('about/', about_view, name='about-page'),
+    path('social/', social_view, name='social-page'),
+    path('create/', product_create_view, name='product-create'),
+    path('initial/', initial_render_view, name='product-create-initial'),
+    path('products/<int:id>/', product_detail_view, name='product-detail'),
+    path('products/', product_list_view, name='product-list'),
+    path('products/<int:id>/delete/', product_delete_view, name='product-delete'),
     path('admin/', admin.site.urls),
 ]
