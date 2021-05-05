@@ -5,19 +5,27 @@ from .models import Course
 from .forms import CourseModelForm
 
 # Create your views here.
-class CourseView(View):
-    template_name = 'courses/about.html'
+class CourseObjectMixin(object):
+    model = Course
+    def get_object(self):
+        id = self.kwargs.get('id')
+        obj = None
+        if id is not None:
+            obj = get_object_or_404(self.model, id=id)
+        return obj
 
-    def get(self, request, *args, **kwargs):
-        obj =  Course.objects.all()
-        context = {
-            "object":obj
-        }
+class CourseView(CourseObjectMixin, View):
+    template_name = "courses/course_detail.html" # DetailView
+    def get(self, request, id=None, *args, **kwargs):
+        # GET method
+        context = {'object': self.get_object()}
         return render(request, self.template_name, context)
+
+    # def post(request, *args, **kwargs):
+    #     return render(request, 'about.html', {})
 
 class CourseCreateView(View):
     template_name = 'courses/course_create.html'
-
     def get(self, request, *args, **kwargs):
         form = CourseModelForm()
         context = {"form":form}
@@ -31,16 +39,8 @@ class CourseCreateView(View):
         context = {"form":form}
         return render(request, self.template_name, context)
 
-class CourseUpdateView(View):
+class CourseUpdateView(CourseObjectMixin, View):
     template_name = 'courses/course_update.html'
-
-    def get_object(self):
-        id = self.kwargs.get('id')
-        obj = None
-        if id is not None:
-            obj = get_object_or_404(Course, id=id)
-        return obj
-
     def get(self, request, id=None, *args, **kwargs):
         context = {}
         obj = self.get_object()
@@ -61,16 +61,8 @@ class CourseUpdateView(View):
             context['form'] = form
         return render(request, self.template_name, context)
 
-class CourseDeleteView(View):
+class CourseDeleteView(CourseObjectMixin, View):
     template_name = 'courses/course_delete.html'
-
-    def get_object(self):
-        id = self.kwargs.get('id')
-        obj = None
-        if id is not None:
-            obj = get_object_or_404(Course, id=id)
-        return obj
-
     def get(self, request, id=None, *args, **kwargs):
         context = {}
         obj = self.get_object()
@@ -87,14 +79,10 @@ class CourseDeleteView(View):
             return redirect('/courses/')
         return render(request, self.template_name, context)
 
-class CourseDetailView(View):
+class CourseDetailView(CourseObjectMixin, View):
     template_name = 'courses/course_detail.html'
-
     def get(self, request, id=None, *args, **kwargs):
-        context = {}
-        if id is not None:
-            obj = get_object_or_404(Course, id=id)
-            context['object'] = obj
+        context = {'object': self.get_object()}
         return render(request, self.template_name, context)
 
 class CourseListView(View):
