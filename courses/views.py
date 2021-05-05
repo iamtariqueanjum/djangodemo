@@ -2,21 +2,37 @@ from django.shortcuts import render, get_object_or_404
 from django.views import View
 
 from .models import Course
+from .forms import CourseModelForm
 
 # Create your views here.
 class CourseView(View):
     template_name = 'courses/about.html'
+
     def get(self, request, *args, **kwargs):
         obj =  Course.objects.all()
         context = {
             "object":obj
         }
         return render(request, self.template_name, context)
-    # def post(request, *args, **kwargs):
-    #         return render(request, 'courses/about.html', {})
+
+class CourseCreateView(View):
+    template_name = 'courses/course_create.html'
+
+    def get(self, request, *args, **kwargs):
+        form = CourseModelForm()
+        context = {"form":form}
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        form = CourseModelForm(request.POST)
+        if form.is_valid():
+            form.save()
+        context = {"form":form}
+        return render(request, self.template_name, context)
 
 class CourseDetailView(View):
     template_name = 'courses/course_detail.html'
+
     def get(self, request, id=None, *args, **kwargs):
         context = {}
         if id is not None:
