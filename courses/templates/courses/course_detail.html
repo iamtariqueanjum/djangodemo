@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
+
 {% block content %}
-<h1>About</h1>
-<p>This is a template page</p>
-{{ object }}
+
+<h1>{{ object.id }} - {{ object.title }}</h1>
+
 {% endblock %}
