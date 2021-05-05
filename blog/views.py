@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 
 from .models import Article
+from .forms import ArticleModelForm
 
 from django.views.generic import (
     CreateView,
@@ -10,6 +11,31 @@ from django.views.generic import (
     DeleteView
 )
 # Create your views here.
+
+class ArticleCreateView(CreateView):
+    form_class = ArticleModelForm
+    template_name = 'blog/article_create.html'
+    queryset = Article.objects.all()
+
+    def form_valid(self, form):
+        # print(form.cleaned_data)
+        return super().form_valid(form)
+
+    # def get_success_url(self):
+    #     return '/'
+
+class ArticleUpdateView(UpdateView):
+    form_class = ArticleModelForm
+    template_name = 'blog/article_create.html'
+    queryset = Article.objects.all()
+
+    def get_object(self):
+        id_ = self.kwargs.get("pk")
+        return get_object_or_404(Article, id=id_)
+
+    def form_valid(self, form):
+        # print(form.cleaned_data)
+        return super().form_valid(form)
 
 class ArticleListView(ListView):
     # template_name = 'blog/article_list.html' -- app_name/<model_name>_viewname.html
